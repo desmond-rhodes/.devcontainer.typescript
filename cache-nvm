@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+set -euxo pipefail
+
+mk() { mkdir -p "${1}" && chmod 777 "${1}"; }
+
+mk '/var/tmp/nvm'
+
+if [ "${1}" = 'start' ]; then
+	mkdir -p "${HOME}/.nvm"
+	ln -s '/var/tmp/nvm' "${HOME}/.nvm/.cache"
+fi
+
+if [ "${1}" = 'stop' ]; then
+	rm -f "${HOME}/.nvm/.cache"
+fi

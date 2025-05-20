@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+set -euxo pipefail
+
+'cache-npm' 'start'
+'cache-nvm' 'start'
+
+'cache-curl' 'https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh' | bash
+
+bash -i <<-'EOF'
+	set -euxo pipefail
+
+	npm install --global 'typescript'
+	npm install --prefix "${workspaceFolder}" --save-dev '@types/node'
+EOF
+
+'cache-npm' 'stop'
+'cache-nvm' 'stop'
